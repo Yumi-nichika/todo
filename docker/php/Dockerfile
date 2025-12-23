@@ -1,5 +1,8 @@
 FROM php:8.1-fpm
 
+RUN groupadd -g 1000 app \
+ && useradd -u 1000 -g app -m app
+
 COPY php.ini /usr/local/etc/php/
 
 RUN apt update \
@@ -11,3 +14,5 @@ RUN curl -sS https://getcomposer.org/installer | php \
   && composer self-update
 
 WORKDIR /var/www
+
+USER app
